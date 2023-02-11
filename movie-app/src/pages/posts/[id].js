@@ -1,7 +1,14 @@
 import Link from 'next/link';
 import Image from "next/image";
+import {useDispatch } from 'react-redux';
+import { addCart } from '@/action';
 
 export default function Home({post}) {
+
+  const dispatch = useDispatch();
+    const addProduct = (post)=>{
+        dispatch(addCart(post));
+    }
 
   const ShowProduct =({post})=>{
     return(
@@ -22,10 +29,11 @@ export default function Home({post}) {
                {post.Language}
             </p>
             <p className="lead">{post.Plot}</p>
-        
-            <Link href="/cart" className='btn btn-outline-dark ms-2 px-3 py-2'>
-            WatchList
-            </Link>
+            <button className='btn btn-outline-dark px-2 py-2'
+                onClick={()=>addProduct(post)}
+                >
+                    Watchlist
+            </button>
         </div>
         </>
     )
@@ -52,7 +60,7 @@ export default function Home({post}) {
   };
 
   export async function getStaticPaths(){
-    const res = await fetch(`https://movies-database-gold.vercel.app/movies/`);
+    const res = await fetch('https://movies-database-gold.vercel.app/movies/');
     const posts = await res.json();
     const ids= posts.map((data)=>data.id);
     const paths = ids.map((id)=>({params: {id:id.toString()}}));

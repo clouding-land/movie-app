@@ -1,7 +1,9 @@
 import Link from 'next/link'
 import navStyle from '@/styles/Nav.module.css'
+import { useSelector } from 'react-redux';
 
 const Nav =()=>{
+  const state = useSelector((state)=> state.handleCart);
     return(
         // <nav className={navStyle.container}>
         //     <ul>
@@ -28,7 +30,7 @@ const Nav =()=>{
         </ul>
         <div className='buttons'>
         <Link href="/cart" className="btn btn-outline-dark ms-2">
-            <i className='fa fa-shopping-cart me-1 '></i>Watchlist
+            <i className='fa fa-shopping-cart me-1 '></i>Watchlist ({state.length})
         </Link>
      </div>
         </div>

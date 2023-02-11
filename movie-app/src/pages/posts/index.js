@@ -42,7 +42,7 @@ export default function AllPosts({ posts }) {
   }
 
   export const getStaticProps =async (context) => {
-    const res = await fetch('https://movies-database-gold.vercel.app/movies');
+    const res = await fetch(`https://movies-database-gold.vercel.app/movies`);
     const posts = await res.json();
     return{
         props:{
